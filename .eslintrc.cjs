@@ -1,18 +1,26 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true, node: true  },
+  env: { browser: true, es2020: true, node: true },
   extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  ignorePatterns: ["dist", ".eslintrc.cjs"],
+  parser: "@typescript-eslint/parser",
+  plugins: ["react-refresh"],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
+    "react-refresh/only-export-components": [
+      "warn",
       { allowConstantExport: true },
     ],
   },
-}
+  overrides: [
+    {
+      files: ["**/*.js"], // Adjust the pattern to match your backend JS files
+      rules: {
+        "@typescript-eslint/no-var-requires": "off",
+      },
+    },
+  ],
+};
