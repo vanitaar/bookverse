@@ -3,6 +3,8 @@ const path = require("path");
 const logger = require("morgan");
 const cors = require("cors");
 
+const debug = require("debug")("BookVerse:server");
+
 const app = express();
 
 app.use(logger("dev"));
@@ -20,5 +22,5 @@ app.get("/*", function (req, res) {
 const port = process.env.PORT || 3000;
 
 app.listen(port, function () {
-  console.log(`Express app running on port ${port}`);
+  debug(`Express app running on port ${port}`);
 });
