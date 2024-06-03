@@ -7,6 +7,9 @@ const debug = require("debug")("BookVerse:server");
 
 const app = express();
 
+require("dotenv").config(); //access secret url from env var
+require("./config/db"); //connect to database
+
 app.use(logger("dev"));
 app.use(express.json()); //built-in middleware (json data --> req.body)
 app.use(express.urlencoded({ extended: true })); //built-in middleware
