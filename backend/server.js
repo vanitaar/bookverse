@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const logger = require("morgan");
 const cors = require("cors");
-
+const corsOptions = require("./config/corsOptions");
 const debug = require("debug")("BookVerse:server");
 
 const app = express();
@@ -13,7 +13,7 @@ require("./config/db"); //connect to database
 app.use(logger("dev"));
 app.use(express.json()); //built-in middleware (json data --> req.body)
 app.use(express.urlencoded({ extended: true })); //built-in middleware
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(express.static(path.join(__dirname, "/dist")));
 
