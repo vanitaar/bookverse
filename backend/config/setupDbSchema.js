@@ -67,6 +67,7 @@ CREATE TABLE IF NOT EXISTS Users (
         id SERIAL PRIMARY KEY,
         author_id INT REFERENCES Users(id),
         status TEXT,
+        archived BOOLEAN,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
