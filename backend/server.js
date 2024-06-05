@@ -14,10 +14,19 @@ require("./config/setupDbSchema");
 // const setupDb = require("./config/setupDbSchema");
 // setupDb();
 
+const passport = require("./config/passport");
+const cookieParser = require("cookie-parser");
+
 app.use(logger("dev"));
 app.use(express.json()); //built-in middleware (json data --> req.body)
 app.use(express.urlencoded({ extended: true })); //built-in middleware
 app.use(cors(corsOptions));
+
+app.use(cookieParser());
+app.use(passport.initialize());
+
+//proxy /api ===:3000
+app.use("/api/auth", require("./routes/authRoutes"));
 
 app.use(express.static(path.join(__dirname, "/dist")));
 
