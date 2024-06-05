@@ -74,8 +74,8 @@ const createTables = async () => {
     debug("Tables created successfully");
   } catch (err) {
     debug("Error creating tables", err);
-  } finally {
-    pool.end();
+    // } finally {
+    //   pool.end();
   }
 };
 
