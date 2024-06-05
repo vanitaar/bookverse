@@ -9,6 +9,10 @@ const app = express();
 
 require("dotenv").config(); //access secret url from env var
 require("./config/db"); //connect to database
+//setup db tables
+require("./config/setupDbSchema");
+// const setupDb = require("./config/setupDbSchema");
+// setupDb();
 
 app.use(logger("dev"));
 app.use(express.json()); //built-in middleware (json data --> req.body)
