@@ -1,0 +1,24 @@
+meta {
+  name: login
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3000/api/auth/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+  "username":
+  "ginny weasly",
+  "email":
+  "ginnyweasly@hogwarts.com",
+  "password":
+  "lovehp",
+    "role":
+    "reader"
+  }
+}
