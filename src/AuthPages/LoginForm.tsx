@@ -5,6 +5,9 @@ import { LoginData, AuthResponse } from "../types/dataTypes";
 import useAuthStore from "../stores/authStore";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import debug from "debug";
+
+const log = debug("BookVerse:AuthPages:Login");
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
@@ -20,7 +23,9 @@ const LoginForm: React.FC = () => {
     mutationFn: loginUser,
     onSuccess: (data: AuthResponse) => {
       setUser(data.user);
+      log(data.user);
       setToken(data.token);
+      log(data.token);
       toast.success("Login successful!");
       navigate("/");
     },
