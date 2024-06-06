@@ -5,6 +5,9 @@ import { RegisterData, AuthResponse } from "../types/dataTypes";
 import useAuthStore from "../stores/authStore";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import debug from "debug";
+
+const log = debug("BookVerse:AuthPages:Login");
 
 const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
@@ -14,7 +17,7 @@ const RegisterForm: React.FC = () => {
       username: "",
       email: "",
       password: "",
-      role: "",
+      role: "reader", //default value need to be specified
     },
   });
 
@@ -22,6 +25,7 @@ const RegisterForm: React.FC = () => {
     mutationFn: registerUser,
     onSuccess: (data: AuthResponse) => {
       setUser(data.user);
+      log(data.user);
       setToken(data.token);
       toast.success("Registration successful!");
     },
