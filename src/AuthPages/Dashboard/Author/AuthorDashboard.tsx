@@ -52,9 +52,9 @@ export const AuthorDashboard = () => {
       case "booklistTab":
         return "My Booklist";
       case "statusTab":
-        return "Status";
+        return "My Status";
       case "bioTab":
-        return "Bio";
+        return "My Bio";
       default:
         return "Account Settings";
     }
