@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { Navbar } from "./Components/Navbar";
 import LandingPage from "./LandingPage/LandingPage";
 import RegisterForm from "./AuthPages/RegisterForm";
-import { LoginForm } from "./AuthPages/LoginForm";
+import LoginForm from "./AuthPages/LoginForm";
 const log = debug("BookVerse:App");
 
 function App() {

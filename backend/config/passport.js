@@ -3,13 +3,13 @@ const LocalStrategy = require("passport-local").Strategy;
 const { Strategy: JwtStrategy, ExtractJwt } = require("passport-jwt");
 const bcrypt = require("bcrypt");
 const { findUserByUsername, findUserById } = require("../models/User");
-console.log(process.env.SECRET_KEY);
+// console.log(process.env.SECRET_KEY);
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
       const user = await findUserByUsername(username);
       if (!user) {
-        return done(null, false, { message: "Incorrect username." });
+        return done(null, false, { message: "Incorrect email." });
       }
       const isMatch = await bcrypt.compare(password, user.password_hashed);
       if (!isMatch) {
