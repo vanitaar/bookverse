@@ -52,12 +52,6 @@ export const Navbar = () => {
             ) : (
               <>
                 <Link
-                  to="/"
-                  className="text-gray-900 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Home
-                </Link>
-                <Link
                   to="/register"
                   className="text-gray-900 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
                 >
@@ -65,7 +59,7 @@ export const Navbar = () => {
                 </Link>
                 <Link
                   to="/login"
-                  className="text-gray-900 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                  className="bg-violet-400 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-violet-500"
                 >
                   Login
                 </Link>
