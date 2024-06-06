@@ -96,7 +96,7 @@ const RegisterForm: React.FC = () => {
                 placeholder="Username"
                 {...form.getInputProps("username")}
                 required
-                className="block w-full px-3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-500 sm:text-sm sm:leading-6"
+                className="block w-full px-3 rounded-md border-0 py-1.5 text-white bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-500 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -114,7 +114,7 @@ const RegisterForm: React.FC = () => {
                 placeholder="Email"
                 {...form.getInputProps("email")}
                 required
-                className="block w-full px-3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-500 sm:text-sm sm:leading-6"
+                className="block w-full px-3 rounded-md border-0 py-1.5 text-white bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-500 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -134,7 +134,7 @@ const RegisterForm: React.FC = () => {
                 placeholder="Password"
                 {...form.getInputProps("password")}
                 required
-                className="block w-full px-3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-500 sm:text-sm sm:leading-6"
+                className="block w-full px-3 rounded-md border-0 py-1.5 text-white bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-500 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -149,7 +149,7 @@ const RegisterForm: React.FC = () => {
                 type="radio"
                 value="reader"
                 {...form.getInputProps("role")}
-                className="custom-radio mr-2 leading-tight"
+                className="radio radio-primary mr-2"
               />
               <label htmlFor="reader" className="text-gray-700">
                 Reader
@@ -162,7 +162,7 @@ const RegisterForm: React.FC = () => {
                 type="radio"
                 value="author"
                 {...form.getInputProps("role")}
-                className="custom-radio mr-2 leading-tight"
+                className="radio radio-primary mr-2"
               />
               <label htmlFor="author" className="text-gray-700">
                 Author
