@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AccountSettings from "../AccountSettings";
+import AccountSettings from "../AccountSettings/AccountSettings";
 import { MyBooklistTab } from "./MyBooklistTab";
 import MyStatusTab from "./MyStatusTab";
 import MyBioTab from "./MyBioTab";
