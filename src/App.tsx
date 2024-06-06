@@ -4,7 +4,7 @@ import { Navbar } from "./Components/Navbar";
 import LandingPage from "./LandingPage/LandingPage";
 import RegisterForm from "./AuthPages/RegisterForm";
 import LoginForm from "./AuthPages/LoginForm";
-import DashboardPage from "./AuthPages/Dashboard/DashboardPage";
+import DashboardPage from "./AuthPages/Dashboard/DashboardPage.tsx";
 import ProtectedRoute from "./AuthPages/ProtectedRoute.tsx";
 
 const log = debug("BookVerse:App");
