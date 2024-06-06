@@ -2,6 +2,7 @@ export interface User {
   id: string;
   username: string;
   role: string;
+  email: string;
 }
 
 export interface AuthResponse {
@@ -19,4 +20,9 @@ export interface RegisterData {
 export interface LoginData {
   username: string;
   password: string;
+}
+
+export interface UpdatePasswordData {
+  currentPassword: string;
+  newPassword: string;
 }
