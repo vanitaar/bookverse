@@ -28,7 +28,7 @@ const RegisterForm: React.FC = () => {
       log(data.user);
       setToken(data.token);
       toast.success("Registration successful!");
-      navigate("/");
+      navigate("/dashboard");
     },
     onError: (error: Error) => {
       toast.error(`Error registering: ${error.message}`);

@@ -27,7 +27,7 @@ const LoginForm: React.FC = () => {
       setToken(data.token);
       log(data.token);
       toast.success("Login successful!");
-      navigate("/");
+      navigate("/dashboard");
     },
     onError: (error: Error) => {
       toast.error(`Error logging in: ${error.message}`);
