@@ -17,7 +17,10 @@ const RegisterForm: React.FC = () => {
       username: "",
       email: "",
       password: "",
-      role: "reader", //default value need to be specified
+      role: "", // no default value to ensure selection
+    },
+    validate: {
+      role: (value) => (value ? null : "Role is required"),
     },
   });
 
@@ -36,8 +39,13 @@ const RegisterForm: React.FC = () => {
   });
 
   const handleSubmit = (values: RegisterData) => {
-    mutation.mutate(values);
+    if (values.role) {
+      mutation.mutate(values);
+    } else {
+      form.setFieldError("role", "Please select a role");
+    }
   };
+
   const handleClose = () => {
     navigate(-1); // This navigates to the previous page
   };
@@ -148,7 +156,8 @@ const RegisterForm: React.FC = () => {
                 name="role"
                 type="radio"
                 value="reader"
-                {...form.getInputProps("role")}
+                checked={form.values.role === "reader"}
+                onChange={() => form.setFieldValue("role", "reader")}
                 className="radio radio-primary mr-2"
               />
               <label htmlFor="reader" className="text-gray-700">
@@ -161,13 +170,19 @@ const RegisterForm: React.FC = () => {
                 name="role"
                 type="radio"
                 value="author"
-                {...form.getInputProps("role")}
+                checked={form.values.role === "author"}
+                onChange={() => form.setFieldValue("role", "author")}
                 className="radio radio-primary mr-2"
               />
               <label htmlFor="author" className="text-gray-700">
                 Author
               </label>
             </div>
+            {form.errors.role && (
+              <div className="text-red-500 text-sm mt-2">
+                {form.errors.role}
+              </div>
+            )}
           </div>
           <div>
             <button
