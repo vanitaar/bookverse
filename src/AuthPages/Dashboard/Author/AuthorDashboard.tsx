@@ -14,7 +14,7 @@ export const AuthorDashboard = () => {
   //     </div>
   //   );
   // eslint-disable-next-line no-unused-vars
-  const [activeTab, setActiveTab] = useState("settingsTab");
+  const [activeTab, setActiveTab] = useState<Tab>("settingsTab");
   //for dropdown on narrower screens
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -45,6 +45,21 @@ export const AuthorDashboard = () => {
     } hover:border-l-violet-500 hover:text-violet-500`;
   };
 
+  const getTabLabel = (tab: Tab) => {
+    switch (tab) {
+      case "settingsTab":
+        return "Account Settings";
+      case "booklistTab":
+        return "My Booklist";
+      case "statusTab":
+        return "Status";
+      case "bioTab":
+        return "Bio";
+      default:
+        return "Account Settings";
+    }
+  };
+
   return (
     <div className="mt-20">
       <div className="mx-4 min-h-screen max-w-screen-xl sm:mx-8 xl:mx-auto">
@@ -65,7 +80,7 @@ export const AuthorDashboard = () => {
               htmlFor="select-1"
               className="flex w-full cursor-pointer select-none rounded-lg border p-2 px-3 text-sm text-gray-300 ring-violet-400 peer-checked:ring"
             >
-              {activeTab === "settingsTab" ? "Account Settings" : "My Booklist"}
+              {getTabLabel(activeTab)}
             </label>
             <svg
               xmlns="http://www.w3.org/2000/svg"
