@@ -39,7 +39,7 @@ const UpdatePwSection = () => {
         <div className="flex flex-col sm:flex-row sm:space-x-3 space-y-4 sm:space-y-0">
           <label htmlFor="current-password" className="flex-grow">
             <span className="text-sm text-gray-500">Current Password</span>
-            <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
+            <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-lime-600">
               <input
                 type="password"
                 id="current-password"
@@ -53,7 +53,7 @@ const UpdatePwSection = () => {
           </label>
           <label htmlFor="new-password" className="flex-grow">
             <span className="text-sm text-gray-500">New Password</span>
-            <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
+            <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-lime-600">
               <input
                 type="password"
                 id="new-password"
@@ -68,7 +68,7 @@ const UpdatePwSection = () => {
         </div>
         <button
           type="submit"
-          className="rounded-lg bg-indigo-600 px-4 py-2 text-white"
+          className="rounded-lg bg-lime-500 px-4 py-2 text-white"
         >
           Save Password
         </button>
