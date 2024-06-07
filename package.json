@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "prepare": "echo \"Skipping Husky installation\""
+    "prepare": "echo \"Skipping Husky installation\"",
+    "start": "concurrently \"vite preview --host\" \"node ./backend/server.js\""
   },
   "dependencies": {
     "@mantine/form": "^7.10.1",
