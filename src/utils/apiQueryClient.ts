@@ -7,8 +7,9 @@ const queryClient = new QueryClient({
       queryFn: async ({ queryKey }) => {
         const [url, options = {}] = queryKey as [string, RequestInit?]; // options set as obj and if undefined  set to empty obj --> allow ...
         // const { token } = authStore.getState(); //to directly access state from vanilla createStore
-        // const API_HOST = process.env.API_HOST || "http://localhost:5000";
-        const response = await fetch(`http://localhost:5000${url}`, {
+        const API_HOST =
+          import.meta.env.VITE_API_HOST || "http://localhost:3000";
+        const response = await fetch(`${API_HOST}${url}`, {
           ...options,
           headers: {
             ...options?.headers,
