@@ -23,6 +23,7 @@ const createTables = async () => {
         id SERIAL PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
         author_id INT REFERENCES Users(id) NOT NULL,
+        image_url TEXT,
         blurb TEXT,
         dedication TEXT,
         publication_date DATE,
