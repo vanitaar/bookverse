@@ -50,13 +50,14 @@ const updatePassword = async (req, res) => {
     // Check if the current password matches
     const user = await findUserById(userId);
     console.log("User found:", user);
-    if (!user || !user.password) {
-      return res
-        .status(400)
-        .json({ error: "User not found or user password is missing" });
+    if (!user) {
+      return res.status(400).json({ error: "User not found" });
     }
 
-    const passwordMatch = await bcrypt.compare(currentPassword, user.password);
+    const passwordMatch = await bcrypt.compare(
+      currentPassword,
+      user.password_hashed,
+    );
     if (!passwordMatch) {
       return res.status(400).json({ error: "Current password is incorrect" });
     }
