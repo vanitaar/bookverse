@@ -5,6 +5,7 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:5173",
   "http://localhost:5174",
+  "https://bookverse-mc11.onrender.com",
 ];
 
 const corsOptions = {
