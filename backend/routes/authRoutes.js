@@ -4,6 +4,7 @@ const {
   registerUser,
   loginUser,
   logoutUser,
+  updatePassword,
 } = require("../controllers/authController");
 
 const router = express.Router();
@@ -15,6 +16,13 @@ router.post(
   passport.authenticate("local", { session: false }),
   loginUser,
 );
+
 router.post("/logout", logoutUser);
+
+router.post(
+  "/update-password",
+  passport.authenticate("jwt", { session: false }),
+  updatePassword,
+);
 
 module.exports = router;

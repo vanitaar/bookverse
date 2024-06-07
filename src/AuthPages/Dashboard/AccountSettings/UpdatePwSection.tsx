@@ -10,16 +10,15 @@ const UpdatePwSection = () => {
   const [currPw, setCurrPw] = useState("");
   const [newPw, setNewPw] = useState("");
   const { clearAuth } = useAuthStore();
-  const token = useAuthStore.getToken();
   const navigate = useNavigate();
 
   const mutation = useMutation<void, Error, UpdatePasswordData>({
-    mutationFn: (newPasswordData) => updatePassword(newPasswordData, token),
+    mutationFn: updatePassword,
     onSuccess: () => {
-      clearAuth(); //logout user
       logoutUser();
       toast.success("Password updated successfully. Please log in again.");
       navigate("/login"); //prompt to re-login w new pw
+      clearAuth(); //logout user
     },
     onError: (error: Error) => {
       toast.error(`Error updating password: ${error.message}`);
