@@ -1,4 +1,9 @@
-import { RegisterData, LoginData, AuthResponse } from "../types/dataTypes";
+import {
+  RegisterData,
+  LoginData,
+  AuthResponse,
+  UpdatePasswordData,
+} from "../types/dataTypes";
 
 //defined parameter types in dataTypes.ts
 // fn takes arg of defined typr and returns Promise which resolves to AuthResponse type
@@ -37,6 +42,25 @@ export const logoutUser = async () => {
   });
   if (!response.ok) {
     throw new Error("Failed to logout user");
+  }
+  return response.json();
+};
+
+export const updatePassword = async (
+  newPasswordData: UpdatePasswordData
+  // token: string
+): Promise<void> => {
+  const response = await fetch("/api/auth/update-password", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      // Authorization: `Bearer ${token}`,
+    },
+    credentials: "include", //include res.cookies in req
+    body: JSON.stringify(newPasswordData),
+  });
+  if (!response.ok) {
+    throw new Error("Failed to update password");
   }
   return response.json();
 };
