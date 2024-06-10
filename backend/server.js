@@ -28,10 +28,15 @@ app.use(passport.initialize());
 //proxy /api ===:3000
 app.use("/api/auth", require("./routes/authRoutes"));
 
-app.use(express.static(path.join(__dirname, "/dist")));
+// app.use(express.static(path.join(__dirname, "/dist")));
+// app.get("/*", function (req, res) {
+//   res.sendFile(path.join(__dirname, "dist", "index.html"));
+// });
+// Serve static files from the ROOT dist directory
+app.use(express.static(path.join(__dirname, "..", "dist")));
 
 app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "..", "dist", "index.html"));
 });
 
 //start server (entry point)
