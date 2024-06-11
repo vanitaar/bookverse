@@ -14,9 +14,10 @@ const createTables = async () => {
 
       CREATE TABLE IF NOT EXISTS Series (
         id SERIAL PRIMARY KEY,
-        title VARCHAR(255) NOT NULL,
+        series_title VARCHAR(255) NOT NULL,
         status VARCHAR(50) NOT NULL CHECK (status IN ('incomplete', 'complete', 'standalone')),
-        author_id INT REFERENCES Users(id) NOT NULL
+        author_id INT REFERENCES Users(id) NOT NULL,
+        CONSTRAINT unique_series_author UNIQUE (series_title, author_id)
       );
 
       CREATE TABLE IF NOT EXISTS Books (

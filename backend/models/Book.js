@@ -7,10 +7,10 @@ const findBooksByAuthor = async (authorId) => {
   return result.rows;
 };
 
-const createOrUpdateSeries = async (title, status, authorId) => {
+const createOrUpdateSeries = async (series_title, status, authorId) => {
   const result = await pool.query(
-    "INSERT INTO Series (title, status, author_id) VALUES ($1, $2, $3) ON CONFLICT (title, author_id) DO UPDATE SET status = $2 RETURNING id",
-    [title, status, authorId]
+    "INSERT INTO Series (series_title, status, author_id) VALUES ($1, $2, $3) ON CONFLICT (series_title, author_id) DO UPDATE SET status = $2 RETURNING id",
+    [series_title, status, authorId]
   );
   return result.rows[0].id;
 };
