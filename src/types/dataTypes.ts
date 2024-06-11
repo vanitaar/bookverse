@@ -26,3 +26,20 @@ export interface UpdatePasswordData {
   currentPassword: string;
   newPassword: string;
 }
+
+export interface Book {
+  id: number;
+  title: string;
+  author_id: number;
+  image_url?: string;
+  blurb?: string;
+  dedication?: string;
+  publication_date?: Date;
+  format_ebook?: boolean;
+  format_physical?: boolean;
+  format_audio?: boolean;
+  series_id?: number; // REFERENCES Series(id),
+  order_in_series?: number;
+  created_at?: Date;
+  updated_at?: Date;
+}
