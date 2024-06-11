@@ -4,7 +4,7 @@ import MyBooklistTab from "./MyBooklistTab.jsx";
 import MyStatusTab from "./MyStatusTab";
 import MyBioTab from "./MyBioTab";
 
-type MyBooklistTabType = React.FC;
+type MyBooklistTab = React.FC;
 
 // Define a type for the tabs
 type Tab = "settingsTab" | "booklistTab" | "statusTab" | "bioTab";
