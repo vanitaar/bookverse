@@ -24,7 +24,8 @@ const addBook = async (req, res) => {
     format_ebook,
     format_physical,
     format_audio,
-    series_id,
+    series_title,
+    series_status,
     order_in_series,
   } = req.body;
   const authorId = req.user.id;
@@ -40,7 +41,8 @@ const addBook = async (req, res) => {
       format_ebook,
       format_physical,
       format_audio,
-      series_id,
+      series_title,
+      series_status,
       order_in_series,
     });
     res.status(201).json(newBook);
