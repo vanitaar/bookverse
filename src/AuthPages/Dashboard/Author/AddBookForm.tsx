@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { addNewBook } from "../../../utils/apiBookClient";
 import useAuthStore from "../../../stores/authStore";
 import { Book } from "../../../types/dataTypes";
+import { toast } from "react-hot-toast";
 
 const AddBookForm: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -54,6 +55,7 @@ const AddBookForm: React.FC = () => {
       return addNewBook(Number(user.id), newBook);
     },
     onSuccess: () => {
+      toast.success("Book added to your Booklist successfully!");
       if (user) {
         queryClient.invalidateQueries([
           "books",
@@ -61,6 +63,9 @@ const AddBookForm: React.FC = () => {
         ] as unknown as InvalidateQueryFilters);
         navigate("/dashboard");
       }
+    },
+    onError: (error: Error) => {
+      toast.error(`Error adding book: ${error.message}`);
     },
   });
 
@@ -75,8 +80,8 @@ const AddBookForm: React.FC = () => {
       format_ebook,
       format_physical,
       format_audio,
-      series_title: isSeries ? seriesTitle : undefined,
-      series_status: isSeries ? seriesStatus : undefined,
+      series_title: isSeries ? seriesTitle : "standalone",
+      series_status: isSeries ? seriesStatus : "standalone",
       order_in_series: isSeries ? order_in_series : undefined,
     });
   };
@@ -185,14 +190,11 @@ const AddBookForm: React.FC = () => {
               <select
                 value={seriesStatus}
                 onChange={(e) =>
-                  setSeriesStatus(
-                    e.target.value as "incomplete" | "complete" | "standalone"
-                  )
+                  setSeriesStatus(e.target.value as "incomplete" | "complete")
                 }
               >
                 <option value="incomplete">Incomplete</option>
                 <option value="complete">Complete</option>
-                <option value="standalone">Standalone</option>
               </select>
             </div>
           </>
