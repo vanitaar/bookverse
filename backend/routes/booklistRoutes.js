@@ -10,13 +10,13 @@ const router = express.Router();
 
 // /api
 router.get(
-  "/booklist",
+  "/authors/:authorId/booklist",
   passport.authenticate("jwt", { session: false }),
   getAllBooksByAuthor
 );
 
 router.post(
-  "/booklist/addbook",
+  "/authors/:authorId/booklist/new",
   passport.authenticate("jwt", { session: false }),
   addBook
 );
