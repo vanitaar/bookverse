@@ -34,7 +34,7 @@ export interface Book {
   image_url?: string;
   blurb?: string;
   dedication?: string;
-  publication_date?: Date | string;
+  publication_date?: Date;
   format_ebook?: boolean;
   format_physical?: boolean;
   format_audio?: boolean;

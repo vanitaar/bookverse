@@ -13,7 +13,16 @@ export const fetchBooksByAuthor = async (authorId: number): Promise<Book[]> => {
     throw new Error("Failed to fetch books by author");
   }
 
-  return response.json();
+  //   return response.json();
+  const books: Book[] = await response.json();
+
+  // Normalize the publication_date field
+  return books.map((book) => ({
+    ...book,
+    publication_date: book.publication_date
+      ? new Date(book.publication_date)
+      : undefined,
+  }));
 };
 
 export const addNewBook = async (

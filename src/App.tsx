@@ -6,6 +6,7 @@ import RegisterForm from "./AuthPages/RegisterForm";
 import LoginForm from "./AuthPages/LoginForm";
 import DashboardPage from "./AuthPages/Dashboard/DashboardPage.tsx";
 import ProtectedRoute from "./AuthPages/ProtectedRoute.tsx";
+import AddBookForm from "./AuthPages/Dashboard/Author/AddBookForm.tsx";
 
 const log = debug("BookVerse:App");
 
@@ -21,6 +22,10 @@ function App() {
         <Route
           path="/dashboard"
           element={<ProtectedRoute children={<DashboardPage />} />}
+        />
+        <Route
+          path="/dashboard/add-book"
+          element={<ProtectedRoute children={<AddBookForm />} />}
         />
       </Routes>
     </>

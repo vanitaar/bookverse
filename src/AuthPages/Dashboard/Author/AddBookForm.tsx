@@ -14,7 +14,9 @@ const AddBookForm: React.FC = () => {
   const [image_url, setImageUrl] = useState("");
   const [blurb, setBlurb] = useState("");
   const [dedication, setDedication] = useState("");
-  const [publication_date, setPublicationDate] = useState<Date | string>("");
+  const [publication_date, setPublicationDate] = useState<Date | undefined>(
+    undefined
+  );
   const [format_ebook, setFormatEbook] = useState(false);
   const [format_physical, setFormatPhysical] = useState(false);
   const [format_audio, setFormatAudio] = useState(false);
@@ -34,11 +36,13 @@ const AddBookForm: React.FC = () => {
   //   if (!user) {
   //     return <div>Loading...</div>;
   //   }
-  const handlePublicationDateChange = (date: Date | string) => {
-    if (typeof date === "string") {
-      setPublicationDate(new Date(date)); // Convert string to Date object
+  const handlePublicationDateChange = (date: Date | string | null) => {
+    if (date instanceof Date) {
+      setPublicationDate(date); // if it's already a Date object, set it directly
+    } else if (typeof date === "string") {
+      setPublicationDate(new Date(date)); // if str coonvert to Date object
     } else {
-      setPublicationDate(date); // Use Date object directly
+      setPublicationDate(undefined); // reset to undefined if null or invalid
     }
   };
 
@@ -78,122 +82,124 @@ const AddBookForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Title</label>
-        <input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-      </div>
-      <div>
-        <label>Image URL</label>
-        <input
-          value={image_url}
-          onChange={(e) => setImageUrl(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Blurb</label>
-        <textarea value={blurb} onChange={(e) => setBlurb(e.target.value)} />
-      </div>
-      <div>
-        <label>Dedication</label>
-        <textarea
-          value={dedication}
-          onChange={(e) => setDedication(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Publication Date</label>
-        <input
-          type="date"
-          value={
-            typeof publication_date === "string"
-              ? publication_date
-              : publication_date.toISOString().split("T")[0]
-          }
-          onChange={(e) => handlePublicationDateChange(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>
+    <div className="mt-20">
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Title</label>
           <input
-            type="checkbox"
-            checked={format_ebook}
-            onChange={(e) => setFormatEbook(e.target.checked)}
-          />{" "}
-          Ebook
-        </label>
-      </div>
-      <div>
-        <label>
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Image URL</label>
           <input
-            type="checkbox"
-            checked={format_physical}
-            onChange={(e) => setFormatPhysical(e.target.checked)}
-          />{" "}
-          Physical
-        </label>
-      </div>
-      <div>
-        <label>
+            value={image_url}
+            onChange={(e) => setImageUrl(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Blurb</label>
+          <textarea value={blurb} onChange={(e) => setBlurb(e.target.value)} />
+        </div>
+        <div>
+          <label>Dedication</label>
+          <textarea
+            value={dedication}
+            onChange={(e) => setDedication(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Publication Date</label>
           <input
-            type="checkbox"
-            checked={format_audio}
-            onChange={(e) => setFormatAudio(e.target.checked)}
-          />{" "}
-          Audio
-        </label>
-      </div>
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            checked={isSeries}
-            onChange={(e) => setIsSeries(e.target.checked)}
-          />{" "}
-          Part of a Series
-        </label>
-      </div>
-      {isSeries && (
-        <>
-          <div>
-            <label>Series Title</label>
+            type="date"
+            value={
+              publication_date
+                ? publication_date.toISOString().split("T")[0]
+                : ""
+            }
+            onChange={(e) => handlePublicationDateChange(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>
             <input
-              value={seriesTitle}
-              onChange={(e) => setSeriesTitle(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label>Order in Series</label>
+              type="checkbox"
+              checked={format_ebook}
+              onChange={(e) => setFormatEbook(e.target.checked)}
+            />{" "}
+            Ebook
+          </label>
+        </div>
+        <div>
+          <label>
             <input
-              type="number"
-              value={order_in_series}
-              onChange={(e) => setOrderInSeries(Number(e.target.value))}
-            />
-          </div>
-          <div>
-            <label>Series Status</label>
-            <select
-              value={seriesStatus}
-              onChange={(e) =>
-                setSeriesStatus(
-                  e.target.value as "incomplete" | "complete" | "standalone"
-                )
-              }
-            >
-              <option value="incomplete">Incomplete</option>
-              <option value="complete">Complete</option>
-              <option value="standalone">Standalone</option>
-            </select>
-          </div>
-        </>
-      )}
-      <button type="submit">Add Book</button>
-    </form>
+              type="checkbox"
+              checked={format_physical}
+              onChange={(e) => setFormatPhysical(e.target.checked)}
+            />{" "}
+            Physical
+          </label>
+        </div>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={format_audio}
+              onChange={(e) => setFormatAudio(e.target.checked)}
+            />{" "}
+            Audio
+          </label>
+        </div>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={isSeries}
+              onChange={(e) => setIsSeries(e.target.checked)}
+            />{" "}
+            Part of a Series
+          </label>
+        </div>
+        {isSeries && (
+          <>
+            <div>
+              <label>Series Title</label>
+              <input
+                value={seriesTitle}
+                onChange={(e) => setSeriesTitle(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label>Order in Series</label>
+              <input
+                type="number"
+                value={order_in_series}
+                onChange={(e) => setOrderInSeries(Number(e.target.value))}
+              />
+            </div>
+            <div>
+              <label>Series Status</label>
+              <select
+                value={seriesStatus}
+                onChange={(e) =>
+                  setSeriesStatus(
+                    e.target.value as "incomplete" | "complete" | "standalone"
+                  )
+                }
+              >
+                <option value="incomplete">Incomplete</option>
+                <option value="complete">Complete</option>
+                <option value="standalone">Standalone</option>
+              </select>
+            </div>
+          </>
+        )}
+        <button type="submit">Add Book</button>
+      </form>
+    </div>
   );
 };
 
