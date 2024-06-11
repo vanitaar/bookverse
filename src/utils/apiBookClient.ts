@@ -18,7 +18,7 @@ export const fetchBooksByAuthor = async (authorId: number): Promise<Book[]> => {
 
 export const addNewBook = async (
   authorId: number,
-  bookData: Omit<Book, "id">
+  bookData: Partial<Book>
 ): Promise<Book> => {
   const response = await fetch(`/api/authors/${authorId}/booklist/new`, {
     method: "POST",

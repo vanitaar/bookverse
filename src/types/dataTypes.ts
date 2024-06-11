@@ -34,11 +34,12 @@ export interface Book {
   image_url?: string;
   blurb?: string;
   dedication?: string;
-  publication_date?: Date;
+  publication_date?: Date | string;
   format_ebook?: boolean;
   format_physical?: boolean;
   format_audio?: boolean;
-  series_id?: number; // REFERENCES Series(id),
+  series_status?: string;
+  series_title?: string;
   order_in_series?: number;
   created_at?: Date;
   updated_at?: Date;
