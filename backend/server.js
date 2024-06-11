@@ -28,6 +28,8 @@ app.use(passport.initialize());
 //proxy /api ===:3000
 app.use("/api/auth", require("./routes/authRoutes"));
 
+app.use("/api", require("./routes/booklistRoutes"));
+
 // app.use(express.static(path.join(__dirname, "/dist")));
 // app.get("/*", function (req, res) {
 //   res.sendFile(path.join(__dirname, "dist", "index.html"));
