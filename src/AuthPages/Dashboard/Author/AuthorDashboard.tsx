@@ -1,10 +1,8 @@
 import { useState } from "react";
 import AccountSettings from "../AccountSettings/AccountSettings";
-import MyBooklistTab from "./MyBooklistTab.jsx";
+import MyBooklistTab from "./MyBooklistTab";
 import MyStatusTab from "./MyStatusTab";
 import MyBioTab from "./MyBioTab";
-
-type MyBooklistTab = React.FC;
 
 // Define a type for the tabs
 type Tab = "settingsTab" | "booklistTab" | "statusTab" | "bioTab";
