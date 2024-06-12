@@ -30,6 +30,8 @@ app.use("/api/auth", require("./routes/authRoutes"));
 
 app.use("/api", require("./routes/booklistRoutes"));
 
+app.use("/api/books", require("./routes/bookSearchRoutes"));
+
 // app.use(express.static(path.join(__dirname, "/dist")));
 // app.get("/*", function (req, res) {
 //   res.sendFile(path.join(__dirname, "dist", "index.html"));

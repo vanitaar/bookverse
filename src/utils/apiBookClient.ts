@@ -44,3 +44,14 @@ export const addNewBook = async (
 
   return response.json();
 };
+
+export const searchBooks = async (query: string): Promise<Book[]> => {
+  const response = await fetch(
+    `/api/books/search?query=${encodeURIComponent(query)}`
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch search results");
+  }
+  const data = await response.json();
+  return data;
+};
