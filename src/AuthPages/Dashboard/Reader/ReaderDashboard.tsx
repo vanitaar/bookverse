@@ -49,7 +49,7 @@ export const ReaderDashboard = () => {
     <div className="mt-20">
       <div className="mx-4 min-h-screen max-w-screen-xl sm:mx-8 xl:mx-auto">
         <h1 className="border-b py-6 text-4xl font-semibold text-gray-300">
-          Author's Dashboard
+          Reader's Dashboard
         </h1>
         <div className="grid grid-cols-8 pt-3 sm:grid-cols-10">
           <div className="relative my-4 w-56 sm:hidden">

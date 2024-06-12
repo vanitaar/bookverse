@@ -4,6 +4,7 @@ import { fetchReaderWatchlist } from "../../../utils/apiWatchlistClient";
 import { WatchlistSeries } from "../../../types/dataTypes";
 import useWatchlistStore from "../../../stores/watchSeriesStore";
 import useAuthStore from "../../../stores/authStore";
+import { Link } from "react-router-dom";
 
 const MyWatchlistTab: React.FC = () => {
   const { setWatchlist } = useWatchlistStore();
@@ -30,16 +31,39 @@ const MyWatchlistTab: React.FC = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
+  const clickDeleteFromWatchlist = (seriesId: number) => {
+    // mutation.mutate(seriesId);
+    console.log(seriesId);
+  };
+
   return (
-    <div className="mt-20">
-      <h2 className="text-2xl font-semibold mb-4">My Watchlist</h2>
+    <div className="mt-10">
+      <h2 className="text-2xl font-semibold mb-4 text-lime-600">
+        My Watchlist
+      </h2>
       <ul>
         {data?.map((series) => (
           <li key={series.id} className="mb-4">
-            <div>
-              <h3 className="text-lg font-semibold">{series.series_title}</h3>
-              <p>Author: {series.author_username}</p>
-              <p>Status: {series.series_status}</p>
+            <div className="flex justify-between items-center">
+              <div>
+                <h3 className="text-lg font-semibold text-slate-400">
+                  {series.series_title}
+                </h3>
+                {/* Link to the author's page */}
+                <p>
+                  Author:{" "}
+                  <Link to={`/author/${series.author_username}`}>
+                    {series.author_username}
+                  </Link>
+                </p>
+                <p>Status: {series.series_status}</p>
+              </div>
+              <button
+                onClick={() => clickDeleteFromWatchlist(series.series_id)}
+                className="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-md"
+              >
+                Delete
+              </button>
             </div>
           </li>
         ))}
@@ -49,58 +73,3 @@ const MyWatchlistTab: React.FC = () => {
 };
 
 export default MyWatchlistTab;
-// import React, { useEffect } from "react";
-// import { useQuery } from "@tanstack/react-query";
-// import { fetchReaderWatchlist } from "../../../utils/apiWatchlistClient";
-// import { WatchlistSeries } from "../../../types/dataTypes";
-// import useWatchlistStore from "../../../stores/watchSeriesStore";
-
-// const MyWatchlistTab: React.FC = () => {
-//   const { setWatchlist } = useWatchlistStore();
-
-//   const { data, isLoading, error } = useQuery<WatchlistSeries[]>({
-//     queryKey: ["readerWatchlist"],
-//     queryFn: fetchReaderWatchlist,
-//     // onSuccess: (data) => {
-//     //   const seriesIds = data.map((series) => series.series_id);
-//     //   setWatchlist(seriesIds);
-//     // },
-//   });
-
-//   useEffect(() => {
-//     const onSuccess = (data: WatchlistSeries[]) => {
-//       const seriesIds = data.map((series) => series.series_id);
-//       setWatchlist(seriesIds);
-//     };
-//     if (!isLoading && !error && data) {
-//       onSuccess(data);
-//     }
-//   });
-
-//   if (isLoading) {
-//     return <div>Loading...</div>;
-//   }
-
-//   if (error) {
-//     return <div>Error: {(error as Error).message}</div>;
-//   }
-
-//   return (
-//     <div className="mt-20">
-//       <h2 className="text-2xl font-semibold mb-4">My Watchlist</h2>
-//       <ul>
-//         {data?.map((series) => (
-//           <li key={series.id} className="mb-4">
-//             <div>
-//               <h3 className="text-lg font-semibold">{series.series_title}</h3>
-//               <p>Author: {series.author_username}</p>
-//               <p>Status: {series.series_status}</p>
-//             </div>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default MyWatchlistTab;
