@@ -76,3 +76,11 @@ export interface AuthorDetailsData {
 export interface WatchSeriesResponse {
   message: string;
 }
+
+export interface WatchlistSeries {
+  id: number;
+  series_title: string;
+  author_username: string;
+  series_status: string;
+  series_id: number;
+}

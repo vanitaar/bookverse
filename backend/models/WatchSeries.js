@@ -18,7 +18,7 @@ const checkIsSeriesInWatchList = async (readerId, seriesId) => {
 
 const getWatchlistDB = async (readerId) => {
   const result = await pool.query(
-    `SELECT ws.*, s.title AS series_title, u.username AS author_username, s.status AS series_status
+    `SELECT ws.*, s.series_title AS series_title, u.username AS author_username, s.status AS series_status, s.id AS series_id
      FROM WatchSeries ws
      JOIN Series s ON ws.series_id = s.id
      JOIN Users u ON s.author_id = u.id
