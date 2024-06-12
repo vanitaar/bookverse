@@ -7,28 +7,31 @@ router.get("/:authorUsername", async (req, res) => {
   const { authorUsername } = req.params;
   try {
     const query = `
-      SELECT 
-        u.id AS author_id, 
-        u.username AS author_username, 
-        u.email AS author_email, 
-        u.role AS author_role, 
-        b.id AS book_id, 
-        b.title AS book_title, 
-        b.image_url AS book_image_url, 
-        b.blurb AS book_blurb, 
-        b.dedication AS book_dedication,
-        b.publication_date AS book_publication_date, 
-        b.format_ebook AS book_format_ebook, 
-        b.format_physical AS book_format_physical, 
-        b.format_audio AS book_format_audio, 
-        s.id AS status_id, 
-        s.status AS status_text, 
-        s.created_at AS status_updated_at
-      FROM Users u 
-      LEFT JOIN Books b ON u.id = b.author_id 
-      LEFT JOIN StatusUpdates s ON u.id = s.author_id
-      WHERE u.username = $1
-      AND (s.archived = FALSE OR s.archived IS NULL);`;
+    SELECT 
+    u.id AS author_id, 
+    u.username AS author_username, 
+    u.email AS author_email, 
+    u.role AS author_role, 
+    b.id AS book_id, 
+    b.title AS book_title, 
+    b.image_url AS book_image_url, 
+    b.blurb AS book_blurb, 
+    b.publication_date AS book_publication_date, 
+    b.format_ebook AS book_format_ebook, 
+    b.format_physical AS book_format_physical, 
+    b.format_audio AS book_format_audio, 
+    s.status AS series_status,
+    s.series_title AS series_title,
+    b.order_in_series AS book_order_in_series,
+    su.id AS status_id, 
+    su.status AS status_text, 
+    su.created_at AS status_updated_at
+  FROM Users u 
+  LEFT JOIN Books b ON u.id = b.author_id 
+  LEFT JOIN Series s ON b.series_id = s.id 
+  LEFT JOIN StatusUpdates su ON u.id = su.author_id
+  WHERE u.username = $1
+  AND (su.archived = FALSE OR su.archived IS NULL);`;
 
     const { rows } = await pool.query(query, [authorUsername]);
 
@@ -50,12 +53,13 @@ router.get("/:authorUsername", async (req, res) => {
         title: row.book_title,
         image_url: row.book_image_url,
         blurb: row.book_blurb,
-        dedication: row.book_dedication,
         publication_date: row.book_publication_date,
         format_ebook: row.book_format_ebook,
         format_physical: row.book_format_physical,
         format_audio: row.book_format_audio,
-        author: row.author_username,
+        series_status: row.series_status,
+        series_title: row.series_title,
+        order_in_series: row.book_order_in_series,
       }));
 
     const statusUpdates = rows
@@ -66,7 +70,21 @@ router.get("/:authorUsername", async (req, res) => {
         created_at: row.status_updated_at,
       }));
 
-    res.json({ author, books, statusUpdates });
+    const completeSeries = books.filter(
+      (book) => book.series_status === "complete"
+    );
+    const incompleteSeries = books.filter(
+      (book) => book.series_status === "incomplete"
+    );
+    const standalones = books.filter((book) => !book.series_title);
+
+    res.json({
+      author,
+      completeSeries,
+      incompleteSeries,
+      standalones,
+      statusUpdates,
+    });
   } catch (error) {
     console.error("Error fetching author details:", error);
     res.status(500).json({ error: "Internal server error" });

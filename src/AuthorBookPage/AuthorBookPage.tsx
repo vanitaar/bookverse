@@ -35,18 +35,21 @@ const AuthorBookPage: React.FC = () => {
     return <div className="mt-20">Loading Data...</div>;
   }
 
-  const { books, statusUpdates } = authorData;
+  const { completeSeries, incompleteSeries, standalones, statusUpdates } =
+    authorData;
 
-  return (
-    <div className="mt-20">
-      <h1>{authorUsername}</h1>
-      <h2>Books</h2>
+  const renderBooks = (books: BookSearchResult[], title: string) => (
+    <div>
+      <h2>{title}</h2>
       <ul>
         {books.map((book: BookSearchResult) => (
           <li key={book.id}>
             <h3>{book.title}</h3>
+            <p>
+              Series: {book.series_title} <i>(Book {book.order_in_series})</i>
+            </p>
+            <p>Blurb: {book.blurb}</p>
             <p>Dedication: {book.dedication}</p>
-            <p>{book.blurb}</p>
             <img src={book.image_url} alt={book.title} />
             <p>Publication Date: {book.publication_date?.toLocaleString()}</p>
             <p>
@@ -56,6 +59,15 @@ const AuthorBookPage: React.FC = () => {
           </li>
         ))}
       </ul>
+    </div>
+  );
+
+  return (
+    <div className="mt-20">
+      <h1>{authorUsername}</h1>
+      {renderBooks(completeSeries, "Complete Series")}
+      {renderBooks(incompleteSeries, "Incomplete Series")}
+      {renderBooks(standalones, "Standalones")}
       <h2>Status Updates</h2>
       <ul>
         {statusUpdates.map((statusUpdate: StatusUpdate) => (

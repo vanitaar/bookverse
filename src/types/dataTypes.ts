@@ -55,7 +55,19 @@ export interface StatusUpdate {
   created_at: Date;
 }
 
+// export interface AuthorDetailsData {
+//   books: BookSearchResult[];
+//   statusUpdates: StatusUpdate[];
+// }
+
 export interface AuthorDetailsData {
-  books: BookSearchResult[];
+  author: {
+    id: number;
+    username: string;
+    role: string;
+  };
+  completeSeries: BookSearchResult[];
+  incompleteSeries: BookSearchResult[];
+  standalones: BookSearchResult[];
   statusUpdates: StatusUpdate[];
 }
