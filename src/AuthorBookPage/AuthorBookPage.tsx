@@ -38,6 +38,10 @@ const AuthorBookPage: React.FC = () => {
   const { completeSeries, incompleteSeries, standalones, statusUpdates } =
     authorData;
 
+  const clickWatchSeries = (seriesTitle: string) => {
+    console.log(`Add to watchSeries: ${seriesTitle}`);
+  };
+
   const renderBooks = (books: BookSearchResult[], title: string) => (
     <div className="mb-10">
       <h2 className="text-2xl font-semibold mb-4">{title}</h2>
@@ -62,6 +66,14 @@ const AuthorBookPage: React.FC = () => {
                 <p className="text-gray-400">
                   Series: {book.series_title}{" "}
                   <i>(Book {book.order_in_series})</i>
+                  <button
+                    onClick={() =>
+                      book.series_title && clickWatchSeries(book.series_title)
+                    }
+                    className="btn bg-amber-400 text-stone-700 btn-sm ml-4 hover:text-rose-400"
+                  >
+                    Watch Series
+                  </button>
                 </p>
               )}
               <p className="text-slate-300">Blurb: {book.blurb}</p>
@@ -92,7 +104,7 @@ const AuthorBookPage: React.FC = () => {
         <h1 className="text-4xl font-bold text-center">{authorUsername}</h1>
       </div>
       <div className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">Status Updates</h2>
+        <h2 className="text-2xl font-semibold mb-4">Status</h2>
         <ul>
           {statusUpdates.map((statusUpdate: StatusUpdate) => (
             <li key={statusUpdate.id} className="mb-4">
