@@ -1,4 +1,4 @@
-import { Book, BookSearchResult } from "../types/dataTypes";
+import { Book, BookSearchResult, AuthorDetailsData } from "../types/dataTypes";
 
 export const fetchBooksByAuthor = async (authorId: number): Promise<Book[]> => {
   const response = await fetch(`api/authors/${authorId}/booklist`, {
@@ -56,4 +56,26 @@ export const searchBooks = async (
   }
   const data = await response.json();
   return data;
+};
+
+export const fetchAuthorBookDetails = async (
+  authorUsername: string
+): Promise<AuthorDetailsData> => {
+  try {
+    const response = await fetch(`/api/authors/${authorUsername}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch author details");
+    }
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching author details:", error);
+    throw error;
+  }
 };

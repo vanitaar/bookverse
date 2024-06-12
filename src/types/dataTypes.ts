@@ -48,3 +48,14 @@ export interface Book {
 export interface BookSearchResult extends Book {
   author: string;
 }
+
+export interface StatusUpdate {
+  id: number;
+  status: string;
+  created_at: Date;
+}
+
+export interface AuthorDetailsData {
+  books: BookSearchResult[];
+  statusUpdates: StatusUpdate[];
+}

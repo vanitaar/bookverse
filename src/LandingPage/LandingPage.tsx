@@ -34,8 +34,9 @@ const LandingPage: React.FC = () => {
     }
   };
 
-  const handleCardClick = (authorId: number) => {
-    navigate(`/author/${authorId}`);
+  const handleCardClick = (authorUsername: string) => {
+    navigate(`/author/${authorUsername}`);
+    console.log(authorUsername);
   };
 
   return (
@@ -63,7 +64,7 @@ const LandingPage: React.FC = () => {
             <div
               key={book.id}
               className="card card-compact bg-base-100 shadow-xl border border-lime-500 cursor-pointer hover:border-teal-400"
-              onClick={() => handleCardClick(book.author_id)}
+              onClick={() => handleCardClick(book.author)}
             >
               {book.image_url && (
                 <figure className="h-48 w-full overflow-hidden">
