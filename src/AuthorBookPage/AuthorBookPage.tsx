@@ -39,46 +39,77 @@ const AuthorBookPage: React.FC = () => {
     authorData;
 
   const renderBooks = (books: BookSearchResult[], title: string) => (
-    <div>
-      <h2>{title}</h2>
-      <ul>
+    <div className="mb-10">
+      <h2 className="text-2xl font-semibold mb-4">{title}</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {books.map((book: BookSearchResult) => (
-          <li key={book.id}>
-            <h3>{book.title}</h3>
-            <p>
-              Series: {book.series_title} <i>(Book {book.order_in_series})</i>
-            </p>
-            <p>Blurb: {book.blurb}</p>
-            <p>Dedication: {book.dedication}</p>
-            <img src={book.image_url} alt={book.title} />
-            <p>Publication Date: {book.publication_date?.toLocaleString()}</p>
-            <p>
-              Formats:{" "}
-              {`${book.format_ebook ? "Ebook" : ""} ${book.format_physical ? "Physical" : ""} ${book.format_audio ? "Audio" : ""}`}
-            </p>
-          </li>
+          <div
+            key={book.id}
+            className="card bg-base-100 shadow-xl border border-lime-500"
+          >
+            {book.image_url && (
+              <figure className="h-48 w-full overflow-hidden">
+                <img
+                  src={book.image_url}
+                  alt={book.title}
+                  className="w-36 h-48 object-cover"
+                />
+              </figure>
+            )}
+            <div className="card-body">
+              <h3 className="card-title text-lime-500">{book.title}</h3>
+              {book.series_title && (
+                <p className="text-gray-400">
+                  Series: {book.series_title}{" "}
+                  <i>(Book {book.order_in_series})</i>
+                </p>
+              )}
+              <p className="text-slate-300">Blurb: {book.blurb}</p>
+              <p className="text-slate-300">Dedication: {book.dedication}</p>
+              <p className="text-gray-400">
+                Publication Date:{" "}
+                {book.publication_date
+                  ? new Date(book.publication_date).toLocaleDateString()
+                  : "N/A"}
+                {/* {book.publication_date?.toLocaleString()} */}
+                {/* {new Date(book.publication_date).toLocaleDateString()} */}
+              </p>
+              <p className="text-gray-400">
+                Formats: {book.format_ebook && "Ebook"}{" "}
+                {book.format_physical && "Physical"}{" "}
+                {book.format_audio && "Audio"}
+              </p>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 
   return (
-    <div className="mt-20">
-      <h1>{authorUsername}</h1>
+    <div className="container mx-auto mt-20 px-4">
+      <div className="bg-lime-500 text-white py-10 rounded-lg mb-10">
+        <h1 className="text-4xl font-bold text-center">{authorUsername}</h1>
+      </div>
+      <div className="mb-10">
+        <h2 className="text-2xl font-semibold mb-4">Status Updates</h2>
+        <ul>
+          {statusUpdates.map((statusUpdate: StatusUpdate) => (
+            <li key={statusUpdate.id} className="mb-4">
+              <div className="bg-teal-300 p-4 rounded-lg">
+                <p className="text-gray-900">{statusUpdate.status}</p>
+                <p className="text-gray-800">
+                  Updated At:{" "}
+                  {new Date(statusUpdate.created_at).toLocaleString()}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
       {renderBooks(completeSeries, "Complete Series")}
       {renderBooks(incompleteSeries, "Incomplete Series")}
       {renderBooks(standalones, "Standalones")}
-      <h2>Status Updates</h2>
-      <ul>
-        {statusUpdates.map((statusUpdate: StatusUpdate) => (
-          <li key={statusUpdate.id}>
-            <p>{statusUpdate.status}</p>
-            <p>
-              Updated At: {new Date(statusUpdate.created_at).toLocaleString()}
-            </p>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };
