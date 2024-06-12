@@ -87,36 +87,46 @@ const AddBookForm: React.FC = () => {
   };
 
   return (
-    <div className="mt-20">
-      <form onSubmit={handleSubmit}>
+    <div className="mt-20 p-6 bg-gray-700 shadow-md rounded-md">
+      <h1 className="text-2xl font-bold mb-4">Add New Book</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label>Title</label>
+          <label className="block mb-1">Title</label>
           <input
+            type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
+            className="input"
           />
         </div>
         <div>
-          <label>Image URL</label>
+          <label className="block mb-1">Image URL</label>
           <input
+            type="text"
             value={image_url}
             onChange={(e) => setImageUrl(e.target.value)}
+            className="input"
           />
         </div>
         <div>
-          <label>Blurb</label>
-          <textarea value={blurb} onChange={(e) => setBlurb(e.target.value)} />
+          <label className="block mb-1">Blurb</label>
+          <textarea
+            value={blurb}
+            onChange={(e) => setBlurb(e.target.value)}
+            className="input"
+          />
         </div>
         <div>
-          <label>Dedication</label>
+          <label className="block mb-1">Dedication</label>
           <textarea
             value={dedication}
             onChange={(e) => setDedication(e.target.value)}
+            className="input"
           />
         </div>
         <div>
-          <label>Publication Date</label>
+          <label className="block mb-1">Publication Date</label>
           <input
             type="date"
             value={
@@ -125,73 +135,82 @@ const AddBookForm: React.FC = () => {
                 : ""
             }
             onChange={(e) => handlePublicationDateChange(e.target.value)}
+            className="input"
           />
         </div>
         <div>
-          <label>
+          <label className="block mb-1">
             <input
               type="checkbox"
               checked={format_ebook}
               onChange={(e) => setFormatEbook(e.target.checked)}
-            />{" "}
+              className="mr-2"
+            />
             Ebook
           </label>
         </div>
         <div>
-          <label>
+          <label className="block mb-1">
             <input
               type="checkbox"
               checked={format_physical}
               onChange={(e) => setFormatPhysical(e.target.checked)}
-            />{" "}
+              className="mr-2"
+            />
             Physical
           </label>
         </div>
         <div>
-          <label>
+          <label className="block mb-1">
             <input
               type="checkbox"
               checked={format_audio}
               onChange={(e) => setFormatAudio(e.target.checked)}
-            />{" "}
+              className="mr-2"
+            />
             Audio
           </label>
         </div>
         <div>
-          <label>
+          <label className="block mb-1">
             <input
               type="checkbox"
               checked={isSeries}
               onChange={(e) => setIsSeries(e.target.checked)}
-            />{" "}
+              className="mr-2"
+            />
             Part of a Series
           </label>
         </div>
         {isSeries && (
           <>
             <div>
-              <label>Series Title</label>
+              <label className="block mb-1">Series Title</label>
               <input
+                type="text"
                 value={seriesTitle}
                 onChange={(e) => setSeriesTitle(e.target.value)}
                 required
+                className="input"
               />
             </div>
             <div>
-              <label>Order in Series</label>
+              <label className="block mb-1">Order in Series</label>
               <input
                 type="number"
-                value={order_in_series}
+                value={order_in_series || ""}
                 onChange={(e) => setOrderInSeries(Number(e.target.value))}
+                className="input"
               />
             </div>
             <div>
-              <label>Series Status</label>
+              <label className="block mb-1">Series Status</label>
               <select
                 value={seriesStatus}
                 onChange={(e) =>
                   setSeriesStatus(e.target.value as "incomplete" | "complete")
                 }
+                className="input"
               >
                 <option value="incomplete">Incomplete</option>
                 <option value="complete">Complete</option>
@@ -199,7 +218,9 @@ const AddBookForm: React.FC = () => {
             </div>
           </>
         )}
-        <button type="submit">Add Book</button>
+        <button type="submit" className="btn btn-primary">
+          Add Book
+        </button>
       </form>
     </div>
   );
