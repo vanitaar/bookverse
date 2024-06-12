@@ -37,11 +37,11 @@ const createTables = async () => {
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
 
-      CREATE TABLE IF NOT EXISTS Follows (
-        id SERIAL PRIMARY KEY,
-        reader_id INT REFERENCES Users(id) NOT NULL,
-        author_id INT REFERENCES Users(id) NOT NULL
-      );
+      -- CREATE TABLE IF NOT EXISTS Follows (
+      --   id SERIAL PRIMARY KEY,
+      --   reader_id INT REFERENCES Users(id) NOT NULL,
+      --   author_id INT REFERENCES Users(id) NOT NULL
+      -- );
 
       CREATE TABLE IF NOT EXISTS WatchSeries (
         id SERIAL PRIMARY KEY,
@@ -49,21 +49,21 @@ const createTables = async () => {
         series_id INT REFERENCES Series(id) NOT NULL
       );
 
-      CREATE TABLE IF NOT EXISTS Bookshelves (
-        id SERIAL PRIMARY KEY,
-        user_id INT REFERENCES Users(id) NOT NULL,
-        book_id INT REFERENCES Books(id) NOT NULL
-      );
+      -- CREATE TABLE IF NOT EXISTS Bookshelves (
+      --   id SERIAL PRIMARY KEY,
+      --   user_id INT REFERENCES Users(id) NOT NULL,
+      --   book_id INT REFERENCES Books(id) NOT NULL
+      -- );
 
-      CREATE TABLE IF NOT EXISTS BookNotes (
-        id SERIAL PRIMARY KEY,
-        book_id INT REFERENCES Books(id) NOT NULL,
-        user_id INT REFERENCES Users(id) NOT NULL,
-        rating INT CHECK (rating >= 1 AND rating <= 5),
-        review_text TEXT,
-        loan_status VARCHAR(50) CHECK (loan_status IN ('bought', 'loaned')),
-        format VARCHAR(50) CHECK (format IN ('ebook', 'audiobook', 'physical'))
-      );
+      -- CREATE TABLE IF NOT EXISTS BookNotes (
+      --   id SERIAL PRIMARY KEY,
+      --   book_id INT REFERENCES Books(id) NOT NULL,
+      --   user_id INT REFERENCES Users(id) NOT NULL,
+      --   rating INT CHECK (rating >= 1 AND rating <= 5),
+      --   review_text TEXT,
+      --   loan_status VARCHAR(50) CHECK (loan_status IN ('bought', 'loaned')),
+      --   format VARCHAR(50) CHECK (format IN ('ebook', 'audiobook', 'physical'))
+      -- );
 
       CREATE TABLE IF NOT EXISTS StatusUpdates (
         id SERIAL PRIMARY KEY,
