@@ -20,7 +20,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/author/:authorId" element={<AuthorBookPage />} />
+        <Route path="/author/:authorUsername" element={<AuthorBookPage />} />
         <Route
           path="/dashboard"
           element={<ProtectedRoute children={<DashboardPage />} />}
