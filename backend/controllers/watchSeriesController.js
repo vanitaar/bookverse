@@ -1,6 +1,7 @@
 const {
   addToWatchSeriesDB,
   checkIsSeriesInWatchList,
+  getWatchlistDB,
 } = require("../models/WatchSeries");
 
 const addSeriesToWatch = async (req, res) => {
@@ -28,4 +29,14 @@ const addSeriesToWatch = async (req, res) => {
   }
 };
 
-module.exports = { addSeriesToWatch };
+const getWatchlist = async (req, res) => {
+  try {
+    const readerId = req.user.id;
+    const watchlist = await getWatchlistDB(readerId);
+    res.status(200).json(watchlist);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = { addSeriesToWatch, getWatchlist };

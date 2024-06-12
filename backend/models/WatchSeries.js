@@ -16,4 +16,20 @@ const checkIsSeriesInWatchList = async (readerId, seriesId) => {
   return result.rows.length > 0;
 };
 
-module.exports = { addToWatchSeriesDB, checkIsSeriesInWatchList };
+const getWatchlistDB = async (readerId) => {
+  const result = await pool.query(
+    `SELECT ws.*, s.title AS series_title, u.username AS author_username, s.status AS series_status
+     FROM WatchSeries ws
+     JOIN Series s ON ws.series_id = s.id
+     JOIN Users u ON s.author_id = u.id
+     WHERE ws.reader_id = $1`,
+    [readerId]
+  );
+  return result.rows;
+};
+
+module.exports = {
+  addToWatchSeriesDB,
+  checkIsSeriesInWatchList,
+  getWatchlistDB,
+};
