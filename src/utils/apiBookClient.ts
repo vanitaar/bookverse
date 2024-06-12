@@ -1,4 +1,4 @@
-import { Book } from "../types/dataTypes";
+import { Book, BookSearchResult } from "../types/dataTypes";
 
 export const fetchBooksByAuthor = async (authorId: number): Promise<Book[]> => {
   const response = await fetch(`api/authors/${authorId}/booklist`, {
@@ -45,7 +45,9 @@ export const addNewBook = async (
   return response.json();
 };
 
-export const searchBooks = async (query: string): Promise<Book[]> => {
+export const searchBooks = async (
+  query: string
+): Promise<BookSearchResult[]> => {
   const response = await fetch(
     `/api/books/search?query=${encodeURIComponent(query)}`
   );

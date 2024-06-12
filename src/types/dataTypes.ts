@@ -44,3 +44,7 @@ export interface Book {
   created_at?: Date;
   updated_at?: Date;
 }
+
+export interface BookSearchResult extends Book {
+  author: string;
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
-import { Book } from "../types/dataTypes";
+import { BookSearchResult } from "../types/dataTypes";
 import { searchBooks } from "../utils/apiBookClient";
 
 const LandingPage: React.FC = () => {
@@ -11,7 +11,7 @@ const LandingPage: React.FC = () => {
   );
   // const navigate = useNavigate();
 
-  const { data: searchResults, refetch } = useQuery<Book[], Error>({
+  const { data: searchResults, refetch } = useQuery<BookSearchResult[], Error>({
     queryKey: ["search", searchQuery],
     queryFn: () => searchBooks(searchQuery),
 
@@ -35,7 +35,7 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="mt-20">
       <form onSubmit={handleSearch}>
         <input
           type="text"
@@ -51,7 +51,7 @@ const LandingPage: React.FC = () => {
           {searchResults.map((book) => (
             <div key={book.id}>
               <h3>{book.title}</h3>
-              <p>Author: to get from user table</p>
+              <p>Author: {book.author}</p>
               <p>Dedication: {book.dedication}</p>
             </div>
           ))}
