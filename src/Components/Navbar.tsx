@@ -22,7 +22,7 @@ export const Navbar = () => {
           <div className="flex items-center">
             <Link to="/">
               <img
-                src="public/images/logo/icons8-books-100.png"
+                src="src/assets/images/logo/icons8-books-100.png"
                 alt="BookVerse Logo"
                 className="h-8 w-auto"
               />

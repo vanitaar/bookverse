@@ -78,7 +78,7 @@ const LoginForm: React.FC = () => {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-20 w-auto"
-            src="public/images/logo/icons8-books-100.png"
+            src="src/assets/images/logo/icons8-books-100.png"
             alt="BookVerse Logo"
           />
           <h2 className="mt-4 text-center text-2xl font-bold leading-9 tracking-tight text-yellow-900">
