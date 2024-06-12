@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { BookSearchResult } from "../types/dataTypes";
 import { searchBooks } from "../utils/apiBookClient";
 
@@ -9,7 +9,7 @@ const LandingPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>(
     searchParams.get("query") || ""
   );
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { data: searchResults, refetch } = useQuery<BookSearchResult[], Error>({
     queryKey: ["search", searchQuery],
@@ -32,6 +32,10 @@ const LandingPage: React.FC = () => {
     } else {
       setSearchParams({});
     }
+  };
+
+  const handleCardClick = (authorId: number) => {
+    navigate(`/author/${authorId}`);
   };
 
   return (
@@ -58,7 +62,8 @@ const LandingPage: React.FC = () => {
           {searchResults.map((book) => (
             <div
               key={book.id}
-              className="card card-compact bg-base-100 shadow-xl border border-lime-500"
+              className="card card-compact bg-base-100 shadow-xl border border-lime-500 cursor-pointer hover:border-teal-400"
+              onClick={() => handleCardClick(book.author_id)}
             >
               {book.image_url && (
                 <figure className="h-48 w-full overflow-hidden">

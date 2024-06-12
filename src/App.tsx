@@ -7,6 +7,7 @@ import LoginForm from "./AuthPages/LoginForm";
 import DashboardPage from "./AuthPages/Dashboard/DashboardPage.tsx";
 import ProtectedRoute from "./AuthPages/ProtectedRoute.tsx";
 import AddBookForm from "./AuthPages/Dashboard/Author/AddBookForm.tsx";
+import AuthorBookPage from "./AuthorBookPage/AuthorBookPage.tsx";
 
 const log = debug("BookVerse:App");
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/author/:authorId" element={<AuthorBookPage />} />
         <Route
           path="/dashboard"
           element={<ProtectedRoute children={<DashboardPage />} />}
