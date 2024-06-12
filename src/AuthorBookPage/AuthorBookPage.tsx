@@ -50,12 +50,21 @@ const AuthorBookPage: React.FC = () => {
   const clickWatchSeries = async (seriesTitle: string, seriesId?: number) => {
     console.log(`Add to watchSeries: ${seriesTitle}`);
     const readerId = Number(user?.id);
-    if (!user || user.role !== "reader") {
+
+    if (user?.role === "author") {
+      toast.error("Login to Reader Account to Watch Series!");
+    }
+
+    if (!user) {
+      const from = `/author/${authorUsername}`;
+      sessionStorage.setItem("from", from);
       navigate("/login", {
         state: { from: location },
       });
+
       toast.error("Login to Reader Account to Watch Series!");
-    } else {
+    }
+    if (user?.role === "reader") {
       try {
         if (seriesId !== undefined) {
           const message = await addNewWatchSeries(readerId, seriesId);
