@@ -1,10 +1,19 @@
 import React, { useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchReaderWatchlist } from "../../../utils/apiWatchlistClient";
+import {
+  InvalidateQueryFilters,
+  useMutation,
+  useQuery,
+} from "@tanstack/react-query";
+import {
+  deleteFromWatchlist,
+  fetchReaderWatchlist,
+} from "../../../utils/apiWatchlistClient";
 import { WatchlistSeries } from "../../../types/dataTypes";
 import useWatchlistStore from "../../../stores/watchSeriesStore";
 import useAuthStore from "../../../stores/authStore";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import queryClient from "../../../utils/apiQueryClient";
 
 const MyWatchlistTab: React.FC = () => {
   const { setWatchlist } = useWatchlistStore();
@@ -13,6 +22,26 @@ const MyWatchlistTab: React.FC = () => {
   const { data, isLoading, error } = useQuery<WatchlistSeries[], Error>({
     queryKey: ["readerWatchlist"],
     queryFn: fetchReaderWatchlist,
+  });
+
+  const mutation = useMutation<void, Error, number>({
+    mutationFn: (seriesId: number) => {
+      if (!user) {
+        throw new Error("User not authenticated");
+      }
+      return deleteFromWatchlist(seriesId);
+    },
+    onSuccess: () => {
+      toast.success("Series removed from watchlist successfully!");
+      if (user) {
+        queryClient.invalidateQueries([
+          "readerWatchlist",
+        ] as unknown as InvalidateQueryFilters);
+      }
+    },
+    onError: (error: Error) => {
+      toast.error(`Error removing series from watchlist: ${error.message}`);
+    },
   });
 
   useEffect(() => {
@@ -32,7 +61,7 @@ const MyWatchlistTab: React.FC = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   const clickDeleteFromWatchlist = (seriesId: number) => {
-    // mutation.mutate(seriesId);
+    mutation.mutate(seriesId);
     console.log(seriesId);
   };
 

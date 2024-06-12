@@ -28,8 +28,17 @@ const getWatchlistDB = async (readerId) => {
   return result.rows;
 };
 
+const removeSeriesFromWatchlistDB = async (readerId, seriesId) => {
+  const result = await pool.query(
+    `DELETE FROM WatchSeries WHERE reader_id = $1 AND series_id = $2`,
+    [readerId, seriesId]
+  );
+  return result.rows[0];
+};
+
 module.exports = {
   addToWatchSeriesDB,
   checkIsSeriesInWatchList,
   getWatchlistDB,
+  removeSeriesFromWatchlistDB,
 };

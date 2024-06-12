@@ -2,6 +2,7 @@ const {
   addToWatchSeriesDB,
   checkIsSeriesInWatchList,
   getWatchlistDB,
+  removeSeriesFromWatchlistDB,
 } = require("../models/WatchSeries");
 
 const addSeriesToWatch = async (req, res) => {
@@ -39,4 +40,27 @@ const getWatchlist = async (req, res) => {
   }
 };
 
-module.exports = { addSeriesToWatch, getWatchlist };
+const removeSeriesFromWatchlist = async (req, res) => {
+  try {
+    const { seriesId } = req.params;
+    const userId = req.user.id;
+
+    const isSeriesInWatchlist = await checkIsSeriesInWatchList(
+      userId,
+      seriesId
+    );
+    if (!isSeriesInWatchlist) {
+      return res.status(404).json({ error: "Series not found in watchlist" });
+    }
+
+    await removeSeriesFromWatchlistDB(userId, seriesId);
+
+    res
+      .status(200)
+      .json({ message: "Series removed from watchlist successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = { addSeriesToWatch, getWatchlist, removeSeriesFromWatchlist };

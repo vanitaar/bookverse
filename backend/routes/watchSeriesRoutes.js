@@ -3,6 +3,7 @@ const passport = require("passport");
 const {
   addSeriesToWatch,
   getWatchlist,
+  removeSeriesFromWatchlist,
 } = require("../controllers/watchSeriesController");
 
 const router = express.Router();
@@ -14,5 +15,11 @@ router.post(
 );
 
 router.get("/", passport.authenticate("jwt", { session: false }), getWatchlist);
+
+router.delete(
+  "/:seriesId",
+  passport.authenticate("jwt", { session: false }),
+  removeSeriesFromWatchlist
+);
 
 module.exports = router;
