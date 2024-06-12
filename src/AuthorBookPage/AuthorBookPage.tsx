@@ -15,6 +15,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import useAuthStore from "../stores/authStore";
 import toast from "react-hot-toast";
+import useWatchlistStore from "../stores/watchSeriesStore";
 
 const AuthorBookPage: React.FC = () => {
   //provide default string type in case undefined to resolve type error
@@ -22,6 +23,7 @@ const AuthorBookPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuthStore();
+  const { watchingSeriesIds, addSeries, isWatching } = useWatchlistStore();
 
   const {
     data: authorData,
@@ -68,13 +70,15 @@ const AuthorBookPage: React.FC = () => {
       try {
         if (seriesId !== undefined) {
           const message = await addNewWatchSeries(readerId, seriesId);
-          alert(message);
+          console.log(message);
+          addSeries(seriesId);
+          toast.success("Series added to watch list successfully!");
         } else {
           console.log("Series Id is missing");
         }
       } catch (error) {
         console.error("Failed to add series to watch list", error);
-        alert("Failed to add series to watch list");
+        toast.error("Failed to add series to watch list");
       }
     }
   };
@@ -103,15 +107,25 @@ const AuthorBookPage: React.FC = () => {
                 <p className="text-gray-400">
                   Series: {book.series_title}{" "}
                   <i>(Book {book.order_in_series})</i>
-                  <button
-                    onClick={() =>
-                      book.series_title &&
-                      clickWatchSeries(book.series_title, book.series_id)
-                    }
-                    className="btn bg-amber-400 text-stone-700 btn-sm ml-4 hover:text-rose-400"
-                  >
-                    Watch Series
-                  </button>
+                  {watchingSeriesIds.includes(book.series_id!) &&
+                  isWatching(book.series_id!) ? (
+                    <button
+                      className="btn bg-gray-600 text-rose-300 btn-sm ml-4"
+                      disabled
+                    >
+                      Watching
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        book.series_title &&
+                        clickWatchSeries(book.series_title, book.series_id)
+                      }
+                      className="btn bg-amber-400 text-stone-700 btn-sm ml-4 hover:text-rose-400"
+                    >
+                      Watch Series
+                    </button>
+                  )}
                 </p>
               )}
               <p className="text-slate-300">Blurb: {book.blurb}</p>
