@@ -37,7 +37,8 @@ const RegisterForm: React.FC = () => {
         sessionStorage.removeItem("from"); // clear stored destination
         navigate(`${from}`); // redirect to the intended destination
       } else {
-        navigate(`/dashboard`);
+        navigate(`/login`);
+        toast.success("Login with your username and password");
       }
     },
     onError: (error: Error) => {
