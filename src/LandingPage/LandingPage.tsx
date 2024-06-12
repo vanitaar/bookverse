@@ -41,7 +41,19 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="container mx-auto mt-20 px-4">
-      <form onSubmit={handleSearch} className="mb-6 flex">
+      <div
+        className="hero bg-teal-500 text-white"
+        style={{
+          backgroundImage: "src/assets/images/logo/icons8-books-100.png",
+        }}
+      >
+        <div className="hero-overlay bg-opacity-0" />
+        <div className="flex flex-col items-center justify-center h-full text-center">
+          <h1 className="text-4xl font-bold mb-4">Welcome to BookVerse!</h1>
+          <p className="text-lg mb-6">Navigate your bookish galaxy</p>
+        </div>
+      </div>
+      <form onSubmit={handleSearch} className="mt-20 mb-6 flex">
         <input
           type="text"
           value={searchQuery}
