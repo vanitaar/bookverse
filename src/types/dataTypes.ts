@@ -40,6 +40,7 @@ export interface Book {
   format_audio?: boolean;
   series_status?: string;
   series_title?: string;
+  series_id?: number;
   order_in_series?: number;
   created_at?: Date;
   updated_at?: Date;
@@ -47,4 +48,31 @@ export interface Book {
 
 export interface BookSearchResult extends Book {
   author: string;
+}
+
+export interface StatusUpdate {
+  id: number;
+  status: string;
+  created_at: Date;
+}
+
+// export interface AuthorDetailsData {
+//   books: BookSearchResult[];
+//   statusUpdates: StatusUpdate[];
+// }
+
+export interface AuthorDetailsData {
+  author: {
+    id: number;
+    username: string;
+    role: string;
+  };
+  completeSeries: BookSearchResult[];
+  incompleteSeries: BookSearchResult[];
+  standalones: BookSearchResult[];
+  statusUpdates: StatusUpdate[];
+}
+
+export interface WatchSeriesResponse {
+  message: string;
 }

@@ -4,14 +4,18 @@ import { loginUser } from "../utils/apiAuthClient";
 import { LoginData, AuthResponse } from "../types/dataTypes";
 import useAuthStore from "../stores/authStore";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import debug from "debug";
 
 const log = debug("BookVerse:AuthPages:Login");
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { setUser, setToken } = useAuthStore();
+
+  const from = location.state?.from || "/";
+
   const form = useForm({
     initialValues: {
       username: "",
@@ -27,7 +31,11 @@ const LoginForm: React.FC = () => {
       setToken(data.token);
       log(data.token);
       toast.success("Login successful!");
-      navigate("/dashboard");
+      // navigate("/dashboard");
+      const redirectUrl = from.includes("author")
+        ? `${from}` //redirect to authorbookpage (!loggedIn --> clickWatchSeries)
+        : `/dashboard`; // default
+      navigate(redirectUrl, { replace: true });
     },
     onError: (error: Error) => {
       toast.error(`Error logging in: ${error.message}`);

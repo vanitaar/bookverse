@@ -32,6 +32,10 @@ app.use("/api", require("./routes/booklistRoutes"));
 
 app.use("/api/books", require("./routes/bookSearchRoutes"));
 
+app.use("/api/authors", require("./routes/authorDetailsRoutes"));
+
+app.use("/api/readers/watchseries", require("./routes/watchSeriesRoutes"));
+
 // app.use(express.static(path.join(__dirname, "/dist")));
 // app.get("/*", function (req, res) {
 //   res.sendFile(path.join(__dirname, "dist", "index.html"));

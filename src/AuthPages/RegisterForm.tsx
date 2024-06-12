@@ -31,7 +31,14 @@ const RegisterForm: React.FC = () => {
       log(data.user);
       setToken(data.token);
       toast.success("Registration successful!");
-      navigate("/dashboard");
+      // navigate("/dashboard");
+      const from = sessionStorage.getItem("from"); //retrieve
+      if (from && from.includes("author")) {
+        sessionStorage.removeItem("from"); // clear stored destination
+        navigate(`${from}`); // redirect to the intended destination
+      } else {
+        navigate(`/dashboard`);
+      }
     },
     onError: (error: Error) => {
       toast.error(`Error registering: ${error.message}`);
