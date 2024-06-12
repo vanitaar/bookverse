@@ -1,4 +1,9 @@
-import { Book, BookSearchResult, AuthorDetailsData } from "../types/dataTypes";
+import {
+  Book,
+  BookSearchResult,
+  AuthorDetailsData,
+  WatchSeriesResponse,
+} from "../types/dataTypes";
 
 export const fetchBooksByAuthor = async (authorId: number): Promise<Book[]> => {
   const response = await fetch(`api/authors/${authorId}/booklist`, {
@@ -78,4 +83,24 @@ export const fetchAuthorBookDetails = async (
     console.error("Error fetching author details:", error);
     throw error;
   }
+};
+
+export const addNewWatchSeries = async (
+  userId: number,
+  seriesId: number
+): Promise<WatchSeriesResponse> => {
+  const response = await fetch("/api/readers/watchseries/new", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ userId, seriesId }),
+    credentials: "include", //include res.cookies in req
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to add series to watch list");
+  }
+
+  const data = await response.json();
+  console.log("msg: ", data.message);
+  return data.message;
 };

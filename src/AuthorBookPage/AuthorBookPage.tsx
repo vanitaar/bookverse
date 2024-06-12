@@ -2,18 +2,27 @@
 //   return <div className="mt-20">AuthorBookPage</div>;
 // };
 import React from "react";
-import { useParams } from "react-router-dom";
-import { fetchAuthorBookDetails } from "../utils/apiBookClient";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  addNewWatchSeries,
+  fetchAuthorBookDetails,
+} from "../utils/apiBookClient";
 import {
   AuthorDetailsData,
   BookSearchResult,
   StatusUpdate,
 } from "../types/dataTypes";
 import { useQuery } from "@tanstack/react-query";
+import useAuthStore from "../stores/authStore";
+import toast from "react-hot-toast";
 
 const AuthorBookPage: React.FC = () => {
   //provide default string type in case undefined to resolve type error
   const { authorUsername = "" } = useParams<{ authorUsername: string }>();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { user } = useAuthStore();
+
   const {
     data: authorData,
     isLoading,
@@ -38,8 +47,27 @@ const AuthorBookPage: React.FC = () => {
   const { completeSeries, incompleteSeries, standalones, statusUpdates } =
     authorData;
 
-  const clickWatchSeries = (seriesTitle: string) => {
+  const clickWatchSeries = async (seriesTitle: string, seriesId?: number) => {
     console.log(`Add to watchSeries: ${seriesTitle}`);
+    const readerId = Number(user?.id);
+    if (!user || user.role !== "reader") {
+      navigate("/login", {
+        state: { from: location },
+      });
+      toast.error("Login to Reader Account to Watch Series!");
+    } else {
+      try {
+        if (seriesId !== undefined) {
+          const message = await addNewWatchSeries(readerId, seriesId);
+          alert(message);
+        } else {
+          console.log("Series Id is missing");
+        }
+      } catch (error) {
+        console.error("Failed to add series to watch list", error);
+        alert("Failed to add series to watch list");
+      }
+    }
   };
 
   const renderBooks = (books: BookSearchResult[], title: string) => (
@@ -68,7 +96,8 @@ const AuthorBookPage: React.FC = () => {
                   <i>(Book {book.order_in_series})</i>
                   <button
                     onClick={() =>
-                      book.series_title && clickWatchSeries(book.series_title)
+                      book.series_title &&
+                      clickWatchSeries(book.series_title, book.series_id)
                     }
                     className="btn bg-amber-400 text-stone-700 btn-sm ml-4 hover:text-rose-400"
                   >
