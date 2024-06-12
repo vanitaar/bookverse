@@ -1,4 +1,7 @@
-const { addToWatchSeriesDB } = require("../models/WatchSeries");
+const {
+  addToWatchSeriesDB,
+  checkIsSeriesInWatchList,
+} = require("../models/WatchSeries");
 
 const addSeriesToWatch = async (req, res) => {
   try {
@@ -8,6 +11,11 @@ const addSeriesToWatch = async (req, res) => {
       return res
         .status(400)
         .json({ error: "User ID and Series ID are required" });
+    }
+    const alreadyInWatchList = await checkIsSeriesInWatchList(userId, seriesId);
+
+    if (alreadyInWatchList) {
+      return res.status(200).json({ message: "Series already in watch list" });
     }
 
     await addToWatchSeriesDB(userId, seriesId);
