@@ -4,8 +4,6 @@ import useAuthStore from "../stores/authStore";
 import toast from "react-hot-toast";
 import { logoutUser } from "../utils/apiAuthClient";
 
-import bookVerseLogo from "../assets/images/logo/icons8-books-100.png";
-
 export const Navbar = () => {
   const { user, clearAuth } = useAuthStore();
   const navigate = useNavigate();
@@ -24,7 +22,7 @@ export const Navbar = () => {
           <div className="flex items-center">
             <Link to="/">
               <img
-                src={bookVerseLogo}
+                src="/images/logo/icons8-books-100.png"
                 alt="BookVerse Logo"
                 className="h-8 w-auto"
               />

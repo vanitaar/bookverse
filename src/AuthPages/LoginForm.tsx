@@ -7,8 +7,6 @@ import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import debug from "debug";
 
-import bookVerseLogo from "../../assets/images/logo/icons8-books-100.png";
-
 const log = debug("BookVerse:AuthPages:Login");
 
 const LoginForm: React.FC = () => {
@@ -80,7 +78,7 @@ const LoginForm: React.FC = () => {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-20 w-auto"
-            src={bookVerseLogo}
+            src="/images/logo/icons8-books-100.png"
             alt="BookVerse Logo"
           />
           <h2 className="mt-4 text-center text-2xl font-bold leading-9 tracking-tight text-yellow-900">
